@@ -24,14 +24,19 @@ public class ResultActivity extends AppCompatActivity {
 
         int[] textIds = {R.id.text1,R.id.text2, R.id.text3,R.id.text4,R.id.text5,R.id.text6,R.id.text7,R.id.text8,R.id.text9};
         int[] ratingIds = {R.id.rating_bar1,R.id.rating_bar2,R.id.rating_bar3,R.id.rating_bar4,R.id.rating_bar5,R.id.rating_bar6,R.id.rating_bar7,R.id.rating_bar8,R.id.rating_bar9};
-
-        for(int i = 0; i<imgNames.length; i++){
+        int temp = 0;
+        for(int i = 0; i<imgNames.length; i++) {
             textVs[i] = findViewById(textIds[i]);
             ratingBars[i] = findViewById(ratingIds[i]);
 
             textVs[i].setText(imgNames[i]);
             ratingBars[i].setRating(votCount[i]);
+
+            if (votCount[i]>temp) {
+                temp = votCount[i];
+            }
         }
+
         Button btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
