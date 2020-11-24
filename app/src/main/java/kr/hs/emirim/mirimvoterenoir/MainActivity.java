@@ -2,8 +2,10 @@ package kr.hs.emirim.mirimvoterenoir;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Button btnDone = findViewById(R.id.btn_done);
+        btnDone.setOnClickListener(btnListener);
+        setTitle("멤트와");
         for(int i = 0; i<voteCount.length; i++){
             voteCount[i] = 0;
         }
@@ -28,12 +32,25 @@ public class MainActivity extends AppCompatActivity {
             imgVs[index] = findViewById(imgVIds[index]);
             imgVs[index].setOnClickListener(imgVListener);
         }
+
     }
+    View.OnClickListener btnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+            intent.putExtra("voteCount",voteCount);
+            intent.putExtra("imgNames",imgNames);
+            startActivity(intent);
+        }
+    };
+
     View.OnClickListener imgVListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             voteCount[index]++;
             Toast.makeText(getApplicationContext(), imgNames[index]+": 총" + voteCount[index] +"표",Toast.LENGTH_LONG).show();
         }
+
     };
+
 }
